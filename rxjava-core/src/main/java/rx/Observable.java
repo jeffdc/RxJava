@@ -29,26 +29,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import rx.operators.OperationConcat;
-import rx.operators.OperationFilter;
-import rx.operators.OperationLast;
-import rx.operators.OperationMap;
-import rx.operators.OperationMaterialize;
-import rx.operators.OperationMerge;
-import rx.operators.OperationMergeDelayError;
-import rx.operators.OperationOnErrorResumeNextViaFunction;
-import rx.operators.OperationOnErrorResumeNextViaObservable;
-import rx.operators.OperationOnErrorReturn;
-import rx.operators.OperationScan;
-import rx.operators.OperationSkip;
-import rx.operators.OperationSynchronize;
-import rx.operators.OperationTake;
-import rx.operators.OperationTakeLast;
-import rx.operators.OperationToObservableFuture;
-import rx.operators.OperationToObservableIterable;
-import rx.operators.OperationToObservableList;
-import rx.operators.OperationToObservableSortedList;
-import rx.operators.OperationZip;
+import rx.operators.*;
 import rx.plugins.RxJavaErrorHandler;
 import rx.plugins.RxJavaPlugins;
 import rx.util.AtomicObservableSubscription;
@@ -1551,6 +1532,18 @@ public class Observable<T> {
             }
         }));
     }
+
+    /**
+     *
+     * @param items
+     * @param count
+     * @param <T>
+     * @return
+     */
+    public static <T> Observable<Iterable<T>> buffer(final Observable<T> items, Integer count) {
+        return _create(OperationBuffer.buffer(items, count));
+    }
+
 
     /**
      * Returns an Observable that emits a single item, a list composed of all the items emitted by
